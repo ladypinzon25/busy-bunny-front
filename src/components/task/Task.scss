@@ -1,0 +1,46 @@
+@import "./src/sass/variables";
+@import "./src/sass/mixins";
+
+.task {
+  @include flex(flex-start);
+  width: calc(100% - 40px);
+  position: relative;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 8px 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  > img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+  }
+  > label {
+    padding-top: 5px;
+    > span {
+      margin-right: 20px;
+      cursor: pointer;
+    }
+  }
+  &__description {
+    max-width: 80%;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: $black-75
+  }
+  &__delete-icon {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    color: $black-65;
+    cursor: pointer;
+    display: none;
+  }
+  &:hover {
+    .icon {
+      display: block;
+    }
+  }
+}

@@ -1,24 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import './App.scss';
+import Users from "./components/users/Users";
+import Tasks from "./components/tasks/Tasks";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="header">
+        <h1 className="header__title">Busy Bunny</h1>
+        <h4 className="header__subtitle">To do app</h4>
       </header>
+      <div className="content">
+        <Users/>
+        <Tasks/>
+      </div>
+      <footer className="footer">
+        Made with <span>❤</span>️ by Lady Pinzon for
+        <img src="./images/bunny.svg" alt="bunny"/>
+      </footer>
     </div>
   );
 }
