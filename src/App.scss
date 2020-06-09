@@ -34,7 +34,44 @@
     bottom: 20px;
     left: calc(50% - 127px);
     > img {
+      height: 17px;
       margin-left: 5px;
+      transform: translateY(4px);
+    }
+  }
+  .bunny-background {
+    width: 20vw;
+    position: fixed;
+    bottom: -12%;
+    right: 1%;
+    z-index: -1;
+    transform: rotate(-35deg);
+  }
+}
+
+@media only screen and (max-width: $break-mobile) {
+  .App {
+    .content {
+      @include flex(flex-start, center, column);
+      max-height: none;
+    }
+    .header {
+      &__title {
+        font-size: $f-size-xxl;
+      }
+      &__subtitle {
+        font-size: $f-size-l;
+      }
+    }
+    .bunny-background {
+      bottom: -2%;
+      right: -1%;
+    }
+    .footer {
+      font-size: $f-size-s;
+      bottom: 5px;
+      background-color: white;
+      left: calc(50% - 112.7px);
     }
   }
 }

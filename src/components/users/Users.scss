@@ -26,5 +26,30 @@
     height: calc(100vh - 350px);
     overflow-y: auto;
     padding: 0 15px;
+    &--empty {
+      @include flex(center, center);
+      > p {
+        color: $black-75;
+        font-size: $f-size-l;
+      }
+    }
   }
 }
+
+@media only screen and (max-width: $break-mobile) {
+  .users {
+    width: 98%;
+    .title-container {
+      &__title {
+        font-size: $f-size-xl;
+      }
+      &__icon {
+        padding-bottom: 0;
+      }
+    }
+    .users-container {
+      height: fit-content;
+    }
+  }
+}
+

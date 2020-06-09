@@ -9,6 +9,7 @@
   padding: 20px;
   margin: 8px 0;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: white;
   > img {
     width: 22px;
     height: 22px;
@@ -26,21 +27,38 @@
   }
   &__description {
     max-width: 80%;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     cursor: pointer;
     color: $black-75
   }
-  &__delete-icon {
+  &__delete-icon-container {
     position: absolute;
     top: 14px;
     right: 14px;
+  }
+  &__delete-icon {
     color: $black-65;
     cursor: pointer;
     display: none;
   }
+  &__edit-icon {
+    color: $black-65;
+    cursor: pointer;
+    margin-left: 5px;
+    display: none;
+  }
   &:hover {
     .icon {
-      display: block;
+      display: initial;
     }
   }
 }
+
+@media only screen and (max-width: $break-mobile) {
+  .task {
+    &__description {
+      font-size: $f-size-s;
+    }
+  }
+}
+

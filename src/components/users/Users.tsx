@@ -1,42 +1,78 @@
-import React, {Component} from 'react';
 import Icon from '@mdi/react'
 import { mdiPlusCircleOutline } from '@mdi/js'
+import React, { Component } from 'react';
 
-import './Users.scss';
 import User from "../user/User";
+import { IUser } from "../../entities/IUser";
+import { ITask } from "../../entities/ITask";
+import { requestStatus } from "../../AppConstants";
 import UsersAPI from "../../API/UsersAPI";
 
-export default class Users extends Component {
+import './Users.scss';
 
-  state = {
-    users: []
-  };
+interface Props {
+  users: IUser[];
+  tasks: ITask[];
+  addNewUser: (user: IUser) => void;
+  updateUserInFront: (user: IUser) => void;
+  toggleSelectedUser: (userId: number | undefined) => void;
+  selectedUserId: number | undefined;
+  refreshTasks: () => void;
+  updateUsersInFront: (users: IUser[], userIdDeleted: number | undefined) => void;
+  addNewUserTemplate: () => void;
+  refreshUsers: () => void;
+}
 
-  componentDidMount() {
-    this.getUsers();
-  }
+export default class Users extends Component<Props> {
 
-  getUsers = async () => {
-    const users = await UsersAPI.getUsers();
-    console.log('users: ', users);
-    this.setState({users});
+  deleteUser = async (userId: number) => {
+    const updatedUsers = this.props.users.filter(task => task.id !== userId);
+
+    this.props.updateUsersInFront(updatedUsers, userId);
+
+    const status = await UsersAPI.deleteUser(userId);
+
+    if (status === requestStatus.success) {
+      this.props.refreshUsers();
+      this.props.refreshTasks();
+      this.props.toggleSelectedUser(undefined);
+    }
   };
 
   render() {
+    const { users, tasks, toggleSelectedUser, selectedUserId, updateUserInFront, addNewUser, refreshUsers, addNewUserTemplate } = this.props;
+
     return (
       <div className="users">
         <div className="title-container">
           <h2 className="title-container__title">Team</h2>
-          <Icon
-            className="title-container__icon"
-            path={mdiPlusCircleOutline}
-            title="Task Profile"
-            size={1.2}
-          />
+          <div onClick={addNewUserTemplate}>
+            <Icon
+              className="title-container__icon"
+              path={mdiPlusCircleOutline}
+              title="Task Profile"
+              size={1.2}
+            />
+          </div>
         </div>
-        <div className="users-container">
-          <User/>
-          <User/>
+        <div className={users.length ? "users-container" : "users-container users-container--empty"}>
+          {!users.length
+            ? <p>No users yet</p>
+            : users.map((user: IUser, i) =>
+              <User
+                key={user.name + i}
+                user={user}
+                tasks={tasks}
+                isSelected={selectedUserId === user.id}
+                updateUserInFront={updateUserInFront}
+                addNewUser={addNewUser}
+                refreshUsers={refreshUsers}
+                deleteUser={this.deleteUser}
+                toggleSelectedUser={toggleSelectedUser}
+              >
+                {selectedUserId && selectedUserId === user.id && this.props.children}
+              </User>
+            )}
         </div>
       </div>
     );
