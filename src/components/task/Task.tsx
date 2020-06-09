@@ -103,7 +103,11 @@ export default class Task extends Component<Props, State> {
 
     return (
       <div className="task">
-        <label>
+        <label
+          onClick={event => {
+            event.stopPropagation();
+          }}
+        >
           <input
             type='checkbox'
             checked={this.isTaskCompleted()}
