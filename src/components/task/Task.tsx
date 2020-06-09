@@ -136,7 +136,7 @@ export default class Task extends Component<Props, State> {
               </span>
             </div>
         }
-        <img src={owner.picture} alt="user"/>
+        <img src={owner && owner.picture} alt="user"/>
         <div className="task__delete-icon-container icon" onClick={() => deleteTask(task.id!)}>
           <Icon
             className="task__delete-icon icon"
